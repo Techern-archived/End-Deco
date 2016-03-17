@@ -1,0 +1,16 @@
+[
+{
+  "modid": "end_deco",
+  "name": "End Deco",
+  "description": "Decorative (and functional) blocks for the End.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Cruz Bishop, ShadowCoder69"],
+  "credits": "Everybody that helps test this :)",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
