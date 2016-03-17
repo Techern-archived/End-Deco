@@ -5,7 +5,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -50,6 +52,28 @@ public class EndDecoBlocks {
             EndDecoMod.PROXY.registerItemModelMesher(Item.getItemFromBlock(END_STONE_BRICKS), 0, "end_stone_bricks", "inventory");
         }
 
+
+    }
+
+    /**
+     * Registers recipes for the {@link EndDecoMod}
+     *
+     * @since 0.0.1
+     */
+    public static void registerRecipes() {
+
+        /**
+         * A single end stone block, used for recipes
+         *
+         * @since 0.0.1
+         */
+        ItemStack singleEndStoneBlock = new ItemStack(Blocks.end_stone);
+
+        if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
+
+            GameRegistry.addShapedRecipe(new ItemStack(END_STONE_BRICKS, 4), "XX", "XX", 'X', singleEndStoneBlock);
+
+        }
 
     }
 

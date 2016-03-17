@@ -86,7 +86,8 @@ public class EndDecoMod {
      */
     @Mod.EventHandler
     public void handlePostInitEvent(FMLPostInitializationEvent event) {
-        //Register recipes here
+        EndDecoBlocks.registerRecipes();
+
         if (CONFIGURATION.hasChanged()) {
             LOGGER.info("End Deco found extra / changed configuration, and is now saving");
             CONFIGURATION.save();
