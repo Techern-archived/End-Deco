@@ -22,7 +22,7 @@ public class EndDecoBlocks {
      */
     public static Block END_STONE_BRICKS = new Block(Material.rock, MapColor.sandColor).setHardness(0.8f)
                                                                    .setResistance(4f)
-                                                                   .setCreativeTab(CreativeTabs.tabDecorations)
+                                                                   .setCreativeTab(CreativeTabs.tabBlock)
                                                                    .setUnlocalizedName("end_stone_bricks")
                                                                    .setStepSound(Block.soundTypePiston); /*what*/
 
