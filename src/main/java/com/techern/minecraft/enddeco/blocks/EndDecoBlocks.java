@@ -2,10 +2,13 @@ package com.techern.minecraft.enddeco.blocks;
 
 import com.techern.minecraft.enddeco.EndDecoMod;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -75,6 +78,70 @@ public class EndDecoBlocks {
 
         }
 
+    }
+
+    /**
+     * Registers a {@link BlockStairs} recipe
+     *
+     * @param baseBlock The base block to be consumed
+     * @param stairBlock The stair block to be returned
+     * @since 0.0.1
+     */
+    public static void registerStairsRecipe(Block baseBlock, Block stairBlock) {
+        registerStairsRecipe(baseBlock, 0, stairBlock);
+    }
+
+    /**
+     * Registers a {@link BlockStairs} recipe
+     *
+     * @param baseBlock The base block to be consumed
+     * @param baseBlockMetadata The required metadata value of the base block
+     * @param stairBlock The stair block to be returned
+     * @since 0.0.1
+     */
+    public static void registerStairsRecipe(Block baseBlock, int baseBlockMetadata, Block stairBlock) {
+        ItemStack input = new ItemStack(baseBlock, 1, baseBlockMetadata);
+        ItemStack output = new ItemStack(stairBlock, 4, 0);
+
+        GameRegistry.addShapedRecipe(output, "  I", " II", "III", 'I', input);
+        GameRegistry.addShapedRecipe(output, "I  ", "II ", "III", 'I', input);
+    }
+
+    /**
+     * Registers all dye variant recipes for a single input {@link Block}
+     *
+     * @param blockToConsume The {@link Block} to consume
+     * @param blockToReturn The {@link Block} to return
+     *
+     * @since 0.0.1
+     */
+    public static void registerSingleDyeBlockRecipeCombination(Block blockToConsume, Block blockToReturn) {
+        registerSingleDyeBlockRecipeCombination(blockToConsume, 0, blockToReturn);
+    }
+
+    /**
+     * Registers all dye variant recipes for a single input {@link Block}
+     *
+     * @param blockToConsume The {@link Block} to consume
+     * @param consumptionMetadata The metadata of the block being consumed
+     * @param blockToReturn The {@link Block} to return
+     *
+     * @since 0.0.1
+     */
+    public static void registerSingleDyeBlockRecipeCombination(Block blockToConsume, int consumptionMetadata, Block blockToReturn) {
+        ItemStack dye;
+        ItemStack water = new ItemStack(Items.water_bucket, 1);
+        for (EnumDyeColor color : EnumDyeColor.values()) {
+            dye = new ItemStack(Items.dye, 1, color.getDyeDamage());
+
+            ItemStack input = new ItemStack(blockToConsume, 1, consumptionMetadata);
+            ItemStack output = new ItemStack(blockToReturn, 8, color.getMetadata());
+
+            GameRegistry.addShapedRecipe(output, "III", "IDI", "III", 'I', input, 'D', dye);
+            GameRegistry.addShapedRecipe(new ItemStack(blockToConsume, 8, consumptionMetadata),
+                    "OOO", "OWO", "OOO",
+                    'W', water, 'O', new ItemStack(blockToReturn, 1, color.getMetadata()));
+        }
     }
 
 
