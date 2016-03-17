@@ -1,2 +1,5 @@
-#Let's do the (only) block so far! :)
+#Start off with end stone bricks
 tile.end_stone_bricks.name=End Stone Bricks
+
+#Then start on stairs
+tile.end_stone_stairs.name=End Stone Stairs
