@@ -39,6 +39,13 @@ public class EndDecoBlocks {
      */
     public static BlockStairs END_STONE_STAIRS = new BaseBlockStairs(Blocks.end_stone.getDefaultState(), "end_stone_stairs");
 
+    /**
+     * A {@link BlockStairs} defining end stone brick stairs
+     *
+     * @since 0.0.1
+     */
+    public static BlockStairs END_STONE_BRICK_STAIRS = new BaseBlockStairs(END_STONE_BRICKS.getDefaultState(), "end_stone_brick_stairs");
+
 
     /**
      * Registers the {@link Block}s added by the {@link EndDecoMod}
@@ -58,6 +65,9 @@ public class EndDecoBlocks {
 
         if (EndDecoMod.CONFIGURATION.getBoolean("Stairs", "NEW_BLOCKS", true, "Enables the use of new stair blocks")) {
             GameRegistry.registerBlock(END_STONE_STAIRS, "end_stone_stairs");
+            if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
+                GameRegistry.registerBlock(END_STONE_BRICK_STAIRS, "end_stone_brick_stairs");
+            }
         }
 
         //Register other blocks later
@@ -70,6 +80,10 @@ public class EndDecoBlocks {
 
         if (EndDecoMod.CONFIGURATION.getBoolean("Stairs", "NEW_BLOCKS", true, "Enables the use of new stair blocks")) {
             EndDecoMod.PROXY.registerItemModelMesher(Item.getItemFromBlock(END_STONE_STAIRS), 0, "end_stone_stairs", "inventory");
+
+            if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
+                EndDecoMod.PROXY.registerItemModelMesher(Item.getItemFromBlock(END_STONE_BRICK_STAIRS), 0, "end_stone_brick_stairs", "inventory");
+            }
         }
 
 
@@ -99,6 +113,9 @@ public class EndDecoBlocks {
         if (EndDecoMod.CONFIGURATION.getBoolean("Stairs", "NEW_BLOCKS", true, "Enables the use of new stair blocks")) {
 
             registerStairsRecipe(Blocks.end_stone, END_STONE_STAIRS);
+            if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
+                registerStairsRecipe(END_STONE_BRICKS, END_STONE_BRICK_STAIRS);
+            }
 
         }
 
