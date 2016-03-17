@@ -26,10 +26,26 @@ public class EndDecoBlocks {
      * @since 0.0.1
      */
     public static Block END_STONE_BRICKS = new Block(Material.rock, MapColor.sandColor).setHardness(0.8f)
-                                                                   .setResistance(4f)
-                                                                   .setCreativeTab(CreativeTabs.tabBlock)
-                                                                   .setUnlocalizedName("end_stone_bricks")
-                                                                   .setStepSound(Block.soundTypePiston); /*what*/
+            .setResistance(4f)
+            .setCreativeTab(CreativeTabs.tabBlock)
+            .setUnlocalizedName("end_stone_bricks")
+            .setStepSound(Block.soundTypePiston); /*what*/
+
+
+    /**
+     * A {@link BlockStairs} defining end stone stairs
+     *
+     * @since 0.0.1
+     */
+    public static BlockStairs END_STONE_STAIRS = new BaseBlockStairs(Blocks.end_stone.getDefaultState(), "end_stone_stairs");
+
+    /**
+     * A {@link BlockStairs} defining end stone brick stairs
+     *
+     * @since 0.0.1
+     */
+    public static BlockStairs END_STONE_BRICK_STAIRS = new BaseBlockStairs(END_STONE_BRICKS.getDefaultState(), "end_stone_brick_stairs");
+
 
     /**
      * Registers the {@link Block}s added by the {@link EndDecoMod}
@@ -47,12 +63,27 @@ public class EndDecoBlocks {
             GameRegistry.registerBlock(END_STONE_BRICKS, "end_stone_bricks");
         }
 
+        if (EndDecoMod.CONFIGURATION.getBoolean("Stairs", "NEW_BLOCKS", true, "Enables the use of new stair blocks")) {
+            GameRegistry.registerBlock(END_STONE_STAIRS, "end_stone_stairs");
+            if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
+                GameRegistry.registerBlock(END_STONE_BRICK_STAIRS, "end_stone_brick_stairs");
+            }
+        }
+
         //Register other blocks later
 
         //Now let's do proxy shit
 
         if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
             EndDecoMod.PROXY.registerItemModelMesher(Item.getItemFromBlock(END_STONE_BRICKS), 0, "end_stone_bricks", "inventory");
+        }
+
+        if (EndDecoMod.CONFIGURATION.getBoolean("Stairs", "NEW_BLOCKS", true, "Enables the use of new stair blocks")) {
+            EndDecoMod.PROXY.registerItemModelMesher(Item.getItemFromBlock(END_STONE_STAIRS), 0, "end_stone_stairs", "inventory");
+
+            if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
+                EndDecoMod.PROXY.registerItemModelMesher(Item.getItemFromBlock(END_STONE_BRICK_STAIRS), 0, "end_stone_brick_stairs", "inventory");
+            }
         }
 
 
@@ -78,12 +109,22 @@ public class EndDecoBlocks {
 
         }
 
+        //Now we do stairs :)
+        if (EndDecoMod.CONFIGURATION.getBoolean("Stairs", "NEW_BLOCKS", true, "Enables the use of new stair blocks")) {
+
+            registerStairsRecipe(Blocks.end_stone, END_STONE_STAIRS);
+            if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
+                registerStairsRecipe(END_STONE_BRICKS, END_STONE_BRICK_STAIRS);
+            }
+
+        }
+
     }
 
     /**
      * Registers a {@link BlockStairs} recipe
      *
-     * @param baseBlock The base block to be consumed
+     * @param baseBlock  The base block to be consumed
      * @param stairBlock The stair block to be returned
      * @since 0.0.1
      */
@@ -94,9 +135,9 @@ public class EndDecoBlocks {
     /**
      * Registers a {@link BlockStairs} recipe
      *
-     * @param baseBlock The base block to be consumed
+     * @param baseBlock         The base block to be consumed
      * @param baseBlockMetadata The required metadata value of the base block
-     * @param stairBlock The stair block to be returned
+     * @param stairBlock        The stair block to be returned
      * @since 0.0.1
      */
     public static void registerStairsRecipe(Block baseBlock, int baseBlockMetadata, Block stairBlock) {
@@ -111,8 +152,7 @@ public class EndDecoBlocks {
      * Registers all dye variant recipes for a single input {@link Block}
      *
      * @param blockToConsume The {@link Block} to consume
-     * @param blockToReturn The {@link Block} to return
-     *
+     * @param blockToReturn  The {@link Block} to return
      * @since 0.0.1
      */
     public static void registerSingleDyeBlockRecipeCombination(Block blockToConsume, Block blockToReturn) {
@@ -122,10 +162,9 @@ public class EndDecoBlocks {
     /**
      * Registers all dye variant recipes for a single input {@link Block}
      *
-     * @param blockToConsume The {@link Block} to consume
+     * @param blockToConsume      The {@link Block} to consume
      * @param consumptionMetadata The metadata of the block being consumed
-     * @param blockToReturn The {@link Block} to return
-     *
+     * @param blockToReturn       The {@link Block} to return
      * @since 0.0.1
      */
     public static void registerSingleDyeBlockRecipeCombination(Block blockToConsume, int consumptionMetadata, Block blockToReturn) {
@@ -143,7 +182,6 @@ public class EndDecoBlocks {
                     'W', water, 'O', new ItemStack(blockToReturn, 1, color.getMetadata()));
         }
     }
-
 
 
 }
