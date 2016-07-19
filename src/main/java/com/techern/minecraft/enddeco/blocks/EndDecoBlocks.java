@@ -3,6 +3,7 @@ package com.techern.minecraft.enddeco.blocks;
 import com.techern.minecraft.enddeco.EndDecoMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -25,11 +26,10 @@ public class EndDecoBlocks {
      *
      * @since 0.0.1
      */
-    public static Block END_STONE_BRICKS = new Block(Material.rock, MapColor.sandColor).setHardness(0.8f)
+    public static Block END_STONE_BRICKS = new Block(Material.ROCK, MapColor.SAND).setHardness(0.8f)
             .setResistance(4f)
-            .setCreativeTab(CreativeTabs.tabBlock)
-            .setUnlocalizedName("end_stone_bricks")
-            .setStepSound(Block.soundTypePiston); /*what*/
+            .setCreativeTab(CreativeTabs.BUILDING_BLOCKS)
+            .setUnlocalizedName("end_stone_bricks"); //TODO stepsound?
 
 
     /**
@@ -37,7 +37,7 @@ public class EndDecoBlocks {
      *
      * @since 0.0.1
      */
-    public static BlockStairs END_STONE_STAIRS = new BaseBlockStairs(Blocks.end_stone.getDefaultState(), "end_stone_stairs");
+    public static BlockStairs END_STONE_STAIRS = new BaseBlockStairs(Blocks.END_STONE.getDefaultState(), "end_stone_stairs");
 
     /**
      * A {@link BlockStairs} defining end stone brick stairs
@@ -60,20 +60,19 @@ public class EndDecoBlocks {
 
             //Now we have to set the level required for mining
             END_STONE_BRICKS.setHarvestLevel("pickaxe", 0);
-            GameRegistry.registerBlock(END_STONE_BRICKS, "end_stone_bricks");
+            GameRegistry.register(END_STONE_BRICKS);
         }
 
         if (EndDecoMod.CONFIGURATION.getBoolean("Stairs", "NEW_BLOCKS", true, "Enables the use of new stair blocks")) {
-            GameRegistry.registerBlock(END_STONE_STAIRS, "end_stone_stairs");
+            GameRegistry.register(END_STONE_STAIRS);
             if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
-                GameRegistry.registerBlock(END_STONE_BRICK_STAIRS, "end_stone_brick_stairs");
+                GameRegistry.register(END_STONE_BRICK_STAIRS);
             }
         }
 
         //Register other blocks later
 
         //Now let's do proxy shit
-
         if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
             EndDecoMod.PROXY.registerItemModelMesher(Item.getItemFromBlock(END_STONE_BRICKS), 0, "end_stone_bricks", "inventory");
         }
@@ -101,7 +100,7 @@ public class EndDecoBlocks {
          *
          * @since 0.0.1
          */
-        ItemStack singleEndStoneBlock = new ItemStack(Blocks.end_stone);
+        ItemStack singleEndStoneBlock = new ItemStack(Blocks.END_STONE);
 
         if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
 
@@ -112,7 +111,7 @@ public class EndDecoBlocks {
         //Now we do stairs :)
         if (EndDecoMod.CONFIGURATION.getBoolean("Stairs", "NEW_BLOCKS", true, "Enables the use of new stair blocks")) {
 
-            registerStairsRecipe(Blocks.end_stone, END_STONE_STAIRS);
+            registerStairsRecipe(Blocks.END_STONE, END_STONE_STAIRS);
             if (EndDecoMod.CONFIGURATION.getBoolean("End_Stone_Bricks", "NEW_BLOCKS", true, "Enables the use of end stone bricks")) {
                 registerStairsRecipe(END_STONE_BRICKS, END_STONE_BRICK_STAIRS);
             }
@@ -169,9 +168,9 @@ public class EndDecoBlocks {
      */
     public static void registerSingleDyeBlockRecipeCombination(Block blockToConsume, int consumptionMetadata, Block blockToReturn) {
         ItemStack dye;
-        ItemStack water = new ItemStack(Items.water_bucket, 1);
+        ItemStack water = new ItemStack(Items.WATER_BUCKET, 1);
         for (EnumDyeColor color : EnumDyeColor.values()) {
-            dye = new ItemStack(Items.dye, 1, color.getDyeDamage());
+            dye = new ItemStack(Items.DYE, 1, color.getDyeDamage());
 
             ItemStack input = new ItemStack(blockToConsume, 1, consumptionMetadata);
             ItemStack output = new ItemStack(blockToReturn, 8, color.getMetadata());

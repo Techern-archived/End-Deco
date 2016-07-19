@@ -2,13 +2,13 @@ package com.techern.minecraft.enddeco.proxy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 
 /**
  * An extension of {@link CommonProxy} for the client
  *
- * @since 0.0.1
+ * @since 0.0.1	
  */
 public class ClientProxy extends CommonProxy {
 
